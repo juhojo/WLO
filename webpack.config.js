@@ -3,5 +3,18 @@ module.exports = {
   output: {
     filename: "bundle.js"
   },
-  watch: true
+  devServer: {
+    inline: true,
+    contentBase: './app',
+    port: 8100
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel'
+      }
+    ]
+  }
 }
