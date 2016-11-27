@@ -16,4 +16,6 @@
 
 #### Install the following packages:
 - Webpack: `npm install webpack -g` // Installs globally
+- Webpack: `npm install webpack-dev-server`
+- Babel: `npm install babel-core babel-loader babel-preset-react babel-preset-es2015`
 - Other packages: `npm install`
