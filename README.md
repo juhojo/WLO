@@ -19,3 +19,7 @@
 - Webpack: `npm install webpack-dev-server`
 - Babel: `npm install babel-core babel-loader babel-preset-react babel-preset-es2015`
 - Other packages: `npm install`
+
+### Development
+- default port 8080
+- run command: npm start
