@@ -8,7 +8,7 @@ import Banner from '../Banner.js';
 export class WorkLoadOptimator extends Component {
 
 	render() {
-		console.log(courses);
+		// console.log(courses);
 		return (
 			<div className="container">
 				<Banner />
