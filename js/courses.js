@@ -1,9 +1,5 @@
 import _ from 'lodash';
 import {rand, add, clone} from './methods';
-var jsnx = require('jsnetworkx');
-// console.log(JSON.stringify(jsnx));
-// jsnx.workerPath = '../node_modules/jsnetworkx/jsnetworkx.js';
-// console.log(jsnx.workerPath);
 
 function generateCourses(){
   const courses=[],
@@ -11,13 +7,13 @@ function generateCourses(){
     ["Matematiikan", "Fysiikan", "Tietotekniikan", "Englannin", "Ruotsin", "Japanin", "Espanjan", "Ranskan", "Tietokantojen", "Mediatekniikan", "Käyttöliittymien", "Painotekniikan", "3D", "Olio-ohjelmoinnin", "Javan", "C#", "Javascriptin", "PHP", "Mobiiliohjelmoinnin", "Peliohjelmoinnin"],
     ["alkeet","jatkokurssi","perusteet","edistynyt kurssi"]
   ];
-  
+
   /* This part will generate some dummy-courses... */
   let id=0;
   for(let i=0; i<5; i++){
     const newCourse = {
       id:id++,
-      name: 
+      name:
         courseNames[0][rand(0,courseNames[0].length-1)] + " " +
         courseNames[1][rand(0,courseNames[1].length-1)],
       credits: rand(5),
@@ -41,7 +37,7 @@ function generateCourses(){
       courses.push(newOption);
     }
   }
-  
+
   return courses;
 }
 
@@ -54,22 +50,21 @@ function findEdges(courses){
       checkEdge(i,j); //Löytyy riviltä 85
     }
   }
-  
+
   //This function takes in two values, selects the courses corresponding to that values and check if any of the lessons associated to the courses overlap. If not, the index of each object in the courses array is stored in the other course's edges property, to indicate that they don't conflict with eachother.
   function checkEdge(a,b){
     //if "b" is not already in the edges of "a" and if courses a and b don't overlap:
     if(
-      !~courses[a].edges.indexOf(b) && 
+      !~courses[a].edges.indexOf(b) &&
       !coursesOverlap(courses[a],courses[b])
     ){
       courses[a].edges.insert(b);
       courses[b].edges.insert(a);
-      // G.addEdge(a,b);
     }
   }
-  
+
   return courses;
-  
+
 }
 
 function findCliques(courses){
@@ -100,7 +95,6 @@ function findCliques(courses){
       }
 
     }
-
     console.log(edges, vertices);
   }
 }
@@ -112,20 +106,12 @@ function vertexInClique(v, a, courses){
 }
 
 // const startTime=Date.now();
-let courses=generateCourses();
+let courses = generateCourses();
 
-const G = new jsnx.Graph();
-console.log(courses.length);
-G.addNodesFrom(Array(courses.length).fill(0).map((v,i)=>i));
+// console.log(courses.length);
+courses = findEdges(courses);
+// console.log(courses);
 
-courses=findEdges(courses);
-
-// jsnx.genFindCliques(G).then(cliques=>{console.log(cliques)});
-// jsnx.genGraphCliqueNumber(G).then(cliques=>{console.log(cliques)});
-// jsnx.genGraphNumberOfCliques(G).then(cliques=>{console.log(cliques)});
-
-console.log(G.edges());
-console.log(courses);
 // console.log(Date.now()-startTime); //this just calculates how long the generating took
 
 //findCliques(courses);
@@ -159,6 +145,33 @@ function lessonsOverlap(l1, l2){
 function pickMoreValuable(c1,c2){
   return c1.worth>c2.worth?c1:c2;
 }
+
+// function BronKerbosch(P, R, X) {
+//   if (_.union(P, X).length > 0) {
+//     console.log(R + ' is maximal clique');
+//   }
+//   for (let v in P) {
+//     // console.log(P[v].pos, P[v].edges);
+//     // console.log(_.intersection(P, P[v].edges));
+//     // BronKerbosch(
+//     //   _.intersection(P, P[v].edges),
+//     //   _.union(R, P[v].pos),
+//     //   _.intersection(X, P[v].edges));
+//     console.log(P[v].pos);
+//     P = P/v;
+//     // X = _.union(X, P[v].pos);
+//
+//     console.log(P, X);
+//   }
+// }
+//
+// const P = [];
+// for (const i in courses) {
+//   if (typeof courses[i] !== 'function')
+//   P.push({pos: i, edges: courses[i].edges});
+// }
+//
+// BronKerbosch(P, [], []);
 
 
 export default courses;
