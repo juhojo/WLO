@@ -10,7 +10,7 @@ function generateCourses(){
 
   /* This part will generate some dummy-courses... */
   let id=0;
-  for(let i=0; i<20; i++){
+  for(let i=0; i<5; i++){
     const newCourse = {
       id:id++,
       name:
@@ -66,37 +66,81 @@ function findEdges(courses){
   return courses;
 }
 
-// function findCliques(courses){
-//   console.log("finding cliques");
-//   courses=clone(courses);
-//   const cliques=[];
+// def bronk2(R, P, X, g):
+//     if not any((P, X)):
+//         yield R
+//     for v in P[:]:
+//         R_v = R + [v]
+//         P_v = [v1 for v1 in P if v1 in N(v, g)]
+//         X_v = [v1 for v1 in X if v1 in N(v, g)]
+//         for r in bronk2(R_v, P_v, X_v, g):
+//             yield r
+//         P.remove(v)
+//         X.append(v)
+// def N(v, g):
+//     return [i for i, n_v in enumerate(g[v]) if n_v]
 //
-//   for (var i = 0; i < courses.length; i++) {
-//
-//     const edges=courses[i].edges;
-//     const vertices={};
-//     const currentClique=[i];
-//     courses[i];
-//
-//     for (var j = 0; j < edges.length; j++) {
-//
-//       const filtered = _.intersection(edges, courses[edges[j]].edges);
-//       const currentClique=[j].concat(currentClique);
-//       vertices[edges[j]]=filtered;
-//
-//       for (var k = 0; k < filtered.length; k++) {
-//
-//         const filtered = _.intersection(filtered, courses[filtered[j]].edges);
-//         if(vertexInClique(k,currentClique)){
-//           const currentClique=[k].concat(currentClique);
-//           filtered[k];
-//         }
-//       }
-//
-//     }
-//     console.log(edges, vertices);
-//   }
-// }
+// In [99]: list(bronk2([], range(6), [], graph))
+// Out[99]: [[0, 1, 4], [1, 2], [2, 3], [3, 4], [3, 5]]
+
+function BronKerbosch(R, P, X, g) {
+  if (P.length < 0 && X.length < 0) {
+    return R;
+  }
+  for (let v in P) {
+    const R_v = R.slice(0);
+                R_v.push(v);
+    let P_v = [];
+    let X_v = [];
+    if (N(v, g)) {
+      P_v.push(v);
+      X_v.push(v);
+    }
+    for (let r in BronKerbosch(R_v, P_v, X_v, g)) {
+      return r;
+    }
+    P.splice(v, 1);
+    X.push(v);
+  }
+}
+
+function N(v, g) {
+  console.log(g[v]);
+  return [];
+  // return [i for i, n_v in enumerate(g[v]) if n_v]
+}
+
+function findCliques(courses){
+  console.log("finding cliques");
+  courses = clone(courses);
+  const cliques=[];
+
+  for (var i = 0; i < courses.length; i++) {
+    const edges=courses[i].edges;
+    const vertices={};
+    const currentClique=[i];
+    // console.log(edges, vertices, currentClique, courses[i]);
+
+    for (var j = 0; j < edges.length; j++) {
+      const filtered = _.intersection(edges, courses[edges[j]].edges);
+
+      // console.log(filtered);
+      // const currentClique=[j].concat(currentClique);
+      // vertices[edges[j]]=filtered;
+      //
+      // for (var k = 0; k < filtered.length; k++) {
+      //
+      //   const filtered = _.intersection(filtered, courses[filtered[j]].edges);
+      //   if(vertexInClique(k,currentClique)){
+      //     const currentClique=[k].concat(currentClique);
+      //     filtered[k];
+      //   }
+      // }
+
+    }
+    console.log(edges);
+  }
+}
 
 function vertexInClique(v, a, courses){
   for (var i = 0; i < a.length; i++) {
@@ -113,7 +157,7 @@ courses = findEdges(courses);
 
 // console.log(Date.now()-startTime); //this just calculates how long the generating took
 
-//findCliques(courses);
+findCliques(courses);
 
 //This compares each of the lessons associated with a course with the lessons of the other course to see if there is any overlapping in the schedule:
 //returns true if there is overlapping, otherwise false
