@@ -10,7 +10,7 @@ function generateCourses(){
 
   /* This part will generate some dummy-courses... */
   let id=0;
-  for(let i=0; i<5; i++){
+  for(let i=0; i<20; i++){
     const newCourse = {
       id:id++,
       name:
@@ -51,7 +51,8 @@ function findEdges(courses){
     }
   }
 
-  //This function takes in two values, selects the courses corresponding to that values and check if any of the lessons associated to the courses overlap. If not, the index of each object in the courses array is stored in the other course's edges property, to indicate that they don't conflict with eachother.
+  // This function takes in two values, selects the courses corresponding to that values and check if any of the lessons associated to the courses overlap.
+  // If not, the index of each object in the courses array is stored in the other course's edges property, to indicate that they don't conflict with eachother.
   function checkEdge(a,b){
     //if "b" is not already in the edges of "a" and if courses a and b don't overlap:
     if(
@@ -62,42 +63,40 @@ function findEdges(courses){
       courses[b].edges.insert(a);
     }
   }
-
   return courses;
-
 }
 
-function findCliques(courses){
-  console.log("finding cliques");
-  courses=clone(courses);
-  const cliques=[];
-
-  for (var i = 0; i < courses.length; i++) {
-
-    const edges=courses[i].edges;
-    const vertices={};
-    const currentClique=[i];
-    courses[i];
-
-    for (var j = 0; j < edges.length; j++) {
-
-      const filtered = _.intersection(edges, courses[edges[j]].edges);
-      const currentClique=[j].concat(currentClique);
-      vertices[edges[j]]=filtered;
-
-      for (var k = 0; k < filtered.length; k++) {
-
-        const filtered = _.intersection(filtered, courses[filtered[j]].edges);
-        if(vertexInClique(k,currentClique)){
-          const currentClique=[k].concat(currentClique);
-          filtered[k];
-        }
-      }
-
-    }
-    console.log(edges, vertices);
-  }
-}
+// function findCliques(courses){
+//   console.log("finding cliques");
+//   courses=clone(courses);
+//   const cliques=[];
+//
+//   for (var i = 0; i < courses.length; i++) {
+//
+//     const edges=courses[i].edges;
+//     const vertices={};
+//     const currentClique=[i];
+//     courses[i];
+//
+//     for (var j = 0; j < edges.length; j++) {
+//
+//       const filtered = _.intersection(edges, courses[edges[j]].edges);
+//       const currentClique=[j].concat(currentClique);
+//       vertices[edges[j]]=filtered;
+//
+//       for (var k = 0; k < filtered.length; k++) {
+//
+//         const filtered = _.intersection(filtered, courses[filtered[j]].edges);
+//         if(vertexInClique(k,currentClique)){
+//           const currentClique=[k].concat(currentClique);
+//           filtered[k];
+//         }
+//       }
+//
+//     }
+//     console.log(edges, vertices);
+//   }
+// }
 
 function vertexInClique(v, a, courses){
   for (var i = 0; i < a.length; i++) {
@@ -145,33 +144,5 @@ function lessonsOverlap(l1, l2){
 function pickMoreValuable(c1,c2){
   return c1.worth>c2.worth?c1:c2;
 }
-
-// function BronKerbosch(P, R, X) {
-//   if (_.union(P, X).length > 0) {
-//     console.log(R + ' is maximal clique');
-//   }
-//   for (let v in P) {
-//     // console.log(P[v].pos, P[v].edges);
-//     // console.log(_.intersection(P, P[v].edges));
-//     // BronKerbosch(
-//     //   _.intersection(P, P[v].edges),
-//     //   _.union(R, P[v].pos),
-//     //   _.intersection(X, P[v].edges));
-//     console.log(P[v].pos);
-//     P = P/v;
-//     // X = _.union(X, P[v].pos);
-//
-//     console.log(P, X);
-//   }
-// }
-//
-// const P = [];
-// for (const i in courses) {
-//   if (typeof courses[i] !== 'function')
-//   P.push({pos: i, edges: courses[i].edges});
-// }
-//
-// BronKerbosch(P, [], []);
-
 
 export default courses;

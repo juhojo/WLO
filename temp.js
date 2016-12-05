@@ -1,3 +1,5 @@
+import courses from './js/courses.js';
+
 var M_VAL = 50000; // Value when not connected nodes
 function generate() {
 	var numNodes = Math.floor(Math.random()*20)+5; // change to courses.length
@@ -171,10 +173,11 @@ var A = generate(); // A is the Graph
 var userAns = new Array();
 var clqs = new Array();
 
-todo();
 function todo() {
 	clqs = new Array();
 	BKAlg(A, R, P, X, 0);
 	var ans = getMaxClq();
 	console.log('A maximum clique for this graph is ' + ans + ' with a length of ' + ans.length);
 }
+
+export { todo, courses };
