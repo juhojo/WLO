@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { KnapsackTools } from './Tools/Tools.js';
 import { KnapsackResultList } from './ResultList/ResultList.js';
 import { knapsack, data } from '../js/knapsack.js';
+import manda from '../js/mandatory.js';
 
 export default class Knapsack extends Component {
   constructor() {
     super();
+    this.defaultData = knapsack(data, 200);
     this.state = {
       courses: data, // Holds all courses.
       selectedCourses: data, // Initially select the default courses.
-      knapsacked: knapsack(data, 200), // Holds all knapsacked items.
+      knapsacked: this.defaultData, // Holds all knapsacked items.
+      mandaed: manda(data, 200),
       hours: 0.5,
     };
   }
