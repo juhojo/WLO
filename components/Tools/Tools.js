@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import Slider from 'material-ui/Slider';
-import TextField from 'material-ui/TextField';
-import Checkbox from 'material-ui/Checkbox';
 import AvailableHours from './AvailableHours.js';
-import Courses from './Courses.js';
+import { KnapsackAddCourse, KnapsackCourses } from './Courses.js';
 import Optimization from './Optimization.js';
 
-export default class Tools extends Component {
+export class KnapsackTools extends Component {
 	render() {
+    const { hours, updateState, updateCourses } = this.props;
 		return (
 			<div className="content-child">
 				<h2>Setup</h2>
-				<AvailableHours />
-				<Courses />
-        <Optimization />
+        <div>
+          <KnapsackAddCourse updateCourses={updateCourses} />
+          <AvailableHours hours={hours} updateState={updateState}/>
+          <KnapsackCourses />
+          <Optimization />
+        </div>
 			</div>
 		);
 	}
+}
+
+KnapsackTools.propTypes = {
+  hours: React.PropTypes.number,
+  updateState: React.PropTypes.func,
+  updateCourses: React.PropTypes.func,
 }

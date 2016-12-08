@@ -133,6 +133,18 @@ label.input-label {
 
 /* Content */
 
+.content-header {
+  display: block;
+  max-width: 1240px;
+  padding: 10px;
+  margin: 0 auto;
+}
+@media (max-width: 1240px) {
+  .content-header {
+    max-width: 620px;
+  }
+}
+
 .content {
 	display: flex;
 	flex-direction: row;

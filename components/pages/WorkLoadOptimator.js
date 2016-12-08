@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import Tools from '../Tools/Tools.js';
-import ResultList from '../ResultList/ResultList.js';
 import courses from '../../js/courses';
 // import { todo, courses } from '../../temp.js';
 var jsnx = require('jsnetworkx');
 
 import Banner from '../Banner.js';
+import Knapsack from '../Knapsack.js';
 
 export class WorkLoadOptimator extends Component {
   constructor(props) {
@@ -31,11 +30,13 @@ export class WorkLoadOptimator extends Component {
   }
 
   findCliques() {
+    const self = this;
     jsnx.genFindCliques(this.G).then(function(cliques) {
       console.log(cliques);
-      for (let i = 0; i < cliques.length; i++) {
-        console.log(cliques[i]);
-      }
+      jsnx.genNumberOfCliques(self.G, self.G.nodes(), cliques).then(function(result){console.log(result);});
+      // for (let i = 0; i < cliques.length; i++) {
+      //   console.log(cliques[i]);
+      // }
     });
   }
 
@@ -50,14 +51,12 @@ export class WorkLoadOptimator extends Component {
   }
 
 	render() {
-		// console.log(courses);
 		return (
 			<div className="container">
 				<Banner />
-				<div className="content">
-					<Tools />
-					<ResultList />
-				</div>
+        <h1 className="content-header">Knapsack Solution</h1>
+        <Knapsack />
+        <h1 className="content-header">Graph Theory Solution</h1>
         <div id="canvas"></div>
         <button onClick={this.drawGraph.bind(this)}>Click to draw</button>
         <button onClick={this.findCliques.bind(this)}>Click me</button>
