@@ -5,14 +5,14 @@ import Optimization from './Optimization.js';
 
 export class KnapsackTools extends Component {
 	render() {
-    const { hours, updateState, updateCourses } = this.props;
+    const { courses, selectedCourses, hours, updateHours, addCourse, updateSelectedCourses } = this.props;
 		return (
 			<div className="content-child">
 				<h2>Setup</h2>
         <div>
-          <KnapsackAddCourse updateCourses={updateCourses} />
-          <AvailableHours hours={hours} updateState={updateState}/>
-          <KnapsackCourses />
+          <KnapsackAddCourse addCourse={addCourse} />
+          <AvailableHours hours={hours} updateHours={updateHours}/>
+          <KnapsackCourses courses={courses} selectedCourses={selectedCourses} updateSelectedCourses={updateSelectedCourses} />
           <Optimization />
         </div>
 			</div>
@@ -21,7 +21,10 @@ export class KnapsackTools extends Component {
 }
 
 KnapsackTools.propTypes = {
+  corses: React.PropTypes.array,
+  selectedCourses: React.PropTypes.array,
   hours: React.PropTypes.number,
-  updateState: React.PropTypes.func,
-  updateCourses: React.PropTypes.func,
+  updateHours: React.PropTypes.func,
+  addCourse: React.PropTypes.func,
+  updateSelectedCourses: React.PropTypes.func,
 }

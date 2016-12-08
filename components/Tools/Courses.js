@@ -4,6 +4,7 @@ import { RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import moment from 'moment';
 import _ from 'lodash';
 
@@ -27,6 +28,7 @@ export class KnapsackAddCourse extends Component {
     const { disabled } = this.state;
     const key = event.target.name;
     const course = this.state.course;
+    if (key === "credits" || key === "hours") { value = parseInt(value); }
     course[key] = value;
 
     let bool = Object.keys(course).some((key) => {
@@ -38,9 +40,9 @@ export class KnapsackAddCourse extends Component {
     this.setState({ disabled: bool, course });
   }
 
-  addCourse() {
+  addCourse(e) {
     const { course } = this.state;
-    this.props.updateCourses(course);
+    this.props.addCourse(course);
     this.setState({ course: this.defaultCourse, disabled: true });
   }
 
@@ -94,12 +96,50 @@ export class KnapsackAddCourse extends Component {
 }
 
 KnapsackAddCourse.propTypes = {
-  updateCourses: React.PropTypes.func,
+  addCourse: React.PropTypes.func,
 };
+
+
+
+
+
+
+
+
+
+
 
 export class KnapsackCourses extends Component {
 
+  renderHeaderColumns(headers) {
+    return headers.map((header, i) =>
+      <TableHeaderColumn key={i}>{header}</TableHeaderColumn>
+    );
+  }
+
+  isSelected(course) {
+    const { selectedCourses } = this.props;
+    return selectedCourses.indexOf(course) >= 0;
+  }
+
+  renderRows() {
+    const { courses } = this.props;
+    return courses.map((course, i) =>
+      <TableRow selected={this.isSelected(course)} key={i}>
+        <TableRowColumn>{course.name}</TableRowColumn>
+        <TableRowColumn>{course.credits}</TableRowColumn>
+        <TableRowColumn>{course.hours}</TableRowColumn>
+        <TableRowColumn>{course.mandatory ? 'Yes' : 'No'}</TableRowColumn>
+      </TableRow>
+    )
+  }
+
+  handleRowSelection(rowIds) {
+    this.props.updateSelectedCourses(rowIds);
+  }
+
 	render() {
+    const { courses, selectedCourses } = this.props;
 		return (
       <Card>
         <CardHeader
@@ -109,12 +149,40 @@ export class KnapsackCourses extends Component {
         />
         <CardText expandable={true}>
           Select the pool of courses for our algorithm.
-          <div>Some table</div>
+          <Table
+            allRowsSelected={courses.length > selectedCourses.length}
+            onRowSelection={this.handleRowSelection.bind(this)}
+            multiSelectable={true}>
+            <TableHeader>
+              <TableRow>
+                {this.renderHeaderColumns(["Course", "Credits", "Hours", "Mandatory"])}
+              </TableRow>
+            </TableHeader>
+            <TableBody
+              deselectOnClickaway={false}>
+              {this.renderRows()}
+            </TableBody>
+          </Table>
         </CardText>
       </Card>
 		);
 	}
 }
+
+KnapsackCourses.propTypes = {
+  courses: React.PropTypes.array,
+  selectedCourses: React.PropTypes.array,
+  updateSelectedCourses: React.PropTypes.func,
+};
+
+
+
+
+
+
+
+
+
 
 
 export class GraphTheoryCourses extends Component {

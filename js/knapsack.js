@@ -6,7 +6,7 @@
 // or equal to the capacity
 // **params**:
 //    `capacity`  : Number,
-//    `items`     : [{w:Number, b:Number}]
+//    `items`     : [{hours:Number, credits:Number}]
 // **returns**:
 //    An object containing `maxValue` and `set`
 function knapsack(items, capacity) {
@@ -36,8 +36,8 @@ function knapsack(items, capacity) {
 
       // If item will fit, decide if there's greater value in keeping it,
       // or leaving it
-      else if (items[idxItem-1].w <= idxWeight){
-        newMax = items[idxItem-1].b + weightMatrix[idxItem-1][idxWeight-items[idxItem-1].w];
+      else if (items[idxItem-1].hours <= idxWeight){
+        newMax = items[idxItem-1].credits + weightMatrix[idxItem-1][idxWeight-items[idxItem-1].hours];
         oldMax = weightMatrix[idxItem-1][idxWeight];
 
         // Update the matrices
@@ -65,7 +65,7 @@ function knapsack(items, capacity) {
   for(idxItem; idxItem > 0; idxItem--){
     if(keepMatrix[idxItem][idxWeight] === 1){
       solutionSet.push(items[idxItem - 1]);
-      idxWeight = idxWeight - items[idxItem - 1].w;
+      idxWeight = idxWeight - items[idxItem - 1].hours;
     }
   }
   return {"maxValue": weightMatrix[numItems][capacity], "set": solutionSet};

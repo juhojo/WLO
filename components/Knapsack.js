@@ -7,37 +7,49 @@ export default class Knapsack extends Component {
   constructor() {
     super();
     this.state = {
-      courses: data, // Initial courses
-      knapsacked: knapsack(this.turnToSackable(data), 200),
+      courses: data, // Holds all courses.
+      selectedCourses: data, // Initially select the default courses.
+      knapsacked: knapsack(data, 200), // Holds all knapsacked items.
       hours: 0.5,
     };
   }
 
-  turnToSackable(courses) {
-    const knapsack = [];
-    courses.map(course => {
-      knapsack.push({ w: course.hours, b: course.credits });
-    });
-    return knapsack;
-  }
-
-  updateCourses(course) {
+  addCourse(course) {
     const courses = this.state.courses.slice(0);
     courses.push(course);
     this.setState({ courses });
   }
 
-  updateState(key, value) {
-    this.setState({[key]: value});
+  updateSelectedCourses(rowIds) {
+    const { courses, hours } = this.state;
+    let selectedCourses = [];
+    if (rowIds instanceof Array) {
+      rowIds.forEach((id) => {
+        selectedCourses.push(courses[id]);
+      });
+    } else if (rowIds === 'all'){
+      selectedCourses = courses.slice(0);
+    }
+    this.setState({ selectedCourses, knapsacked: knapsack(selectedCourses, (hours * 400)) });
+  }
+
+  updateHours(value) {
+    const { selectedCourses } = this.state;
+    this.setState({ hours: value, knapsacked: knapsack(selectedCourses, (value * 400)) });
   }
 
 	render() {
-    const { courses, knapsacked, hours } = this.state;
-    console.log(knapsacked);
+    const { courses, selectedCourses, knapsacked, hours } = this.state;
     return (
       <div className="content">
-        <KnapsackTools hours={hours} updateCourses={this.updateCourses.bind(this)} updateState={this.updateState.bind(this)}/>
-        <KnapsackResultList courses={courses} />
+        <KnapsackTools
+          courses={courses}
+          selectedCourses={selectedCourses}
+          hours={hours}
+          addCourse={this.addCourse.bind(this)}
+          updateSelectedCourses={this.updateSelectedCourses.bind(this)}
+          updateHours={this.updateHours.bind(this)} />
+        <KnapsackResultList result={knapsacked.maxValue} courses={knapsacked.set} />
       </div>
     );
   }

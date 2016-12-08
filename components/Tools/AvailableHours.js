@@ -16,8 +16,8 @@ export default class AvailableHours extends Component {
   };
 
   sliderChange(e, value) {
-    const { updateState } = this.props;
-    updateState("hours", value);
+    const { updateHours } = this.props;
+    updateHours(value);
   }
 
 	render() {
@@ -43,5 +43,5 @@ export default class AvailableHours extends Component {
 
 AvailableHours.propTypes = {
   hours: React.PropTypes.number,
-  updateState: React.PropTypes.func,
+  updateHours: React.PropTypes.func,
 }
