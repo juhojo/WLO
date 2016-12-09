@@ -34,7 +34,7 @@ export default class AvailableHours extends Component {
         <CardText expandable={true}>
           Choose the amount of hours you have available for courses.
           <Slider name="hours" onChange={this.sliderChange.bind(this)} step={0.10} value={hours} />
-          <p>{hours * 400} hours</p>
+          <p style={{ textAlign: 'center' }}>{hours * 400} hours</p>
         </CardText>
       </Card>
 		);

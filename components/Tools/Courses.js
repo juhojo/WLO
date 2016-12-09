@@ -67,7 +67,7 @@ export class KnapsackAddCourse extends Component {
           showExpandableButton={true}
         />
         <CardText expandable={true}>
-          Please fill all required field listed below. You only need to know the course name,
+          Please fill all the fields listed below. You only need to know the course name,
           how many credits is the course worth and how many hours it takes to finish it.
           {this.renderTextField("Course name", true, name, "string", "name", this.onChange)}
           <br/>
@@ -148,7 +148,7 @@ export class KnapsackCourses extends Component {
           showExpandableButton={true}
         />
         <CardText expandable={true}>
-          Select the pool of courses for our algorithm.
+          Select the courses you wish to get optimized.
           <Table
             allRowsSelected={courses.length === selectedCourses.length}
             onRowSelection={this.handleRowSelection.bind(this)}
