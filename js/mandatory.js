@@ -11,7 +11,10 @@
  */
 
 function manda(data, capacity) {
-  let returnData = [];
+  let returnData = {
+    maxValue: 0,
+    set: [],
+  };
   let mandatories = [];
   let freebies = [];
 
@@ -23,19 +26,20 @@ function manda(data, capacity) {
     return a.credits > b.credits;
   });
 
-  while (capacity > 0) {
+  while (capacity > 0 && returnData.set.length < data.length) {
     for (let i = mandatories.length - 1; i >= 0; i--) {
       if (mandatories[i].hours <= capacity) {
-        returnData.push(mandatories[i]);
+        returnData.set.push(mandatories[i]);
         capacity = capacity - mandatories[i].hours;
       } else break;
     }
     for (let i = 0; i < freebies.length; i++) {
       if (freebies[i].hours <= capacity) {
-        returnData.push(freebies[i]);
+        returnData.set.push(freebies[i]);
         capacity = capacity - freebies[i].hours;
       } else break;
     }
+    break; // Can not fit anymore so quit.
   }
   return returnData;
 }
