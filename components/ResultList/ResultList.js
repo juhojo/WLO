@@ -9,6 +9,7 @@ export class KnapsackResultList extends Component {
   constructor() {
     super();
     this.palette = getMuiTheme().palette;
+    console.log(this.palette);
   }
 
   renderHeaderColumns(headers) {
