@@ -111,10 +111,27 @@ KnapsackAddCourse.propTypes = {
 
 export class KnapsackCourses extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      courses: props.courses,
+      previousKey: 'name',
+    };
+  }
+
+  sortBy(key, event) {
+    const { courses, previousKey } = this.state;
+    const helper = key === previousKey ? _.sortBy(courses, key) : _.reverse(_.sortBy(courses, key));
+    this.setState({ courses: helper, previousKey: key });
+  }
+
   renderHeaderColumns(headers) {
-    return headers.map((header, i) =>
-      <TableHeaderColumn key={i}>{header}</TableHeaderColumn>
-    );
+    const { previousKey } = this.state;
+    return headers.map((header, i) => {
+      const active = previousKey === header.k;
+      const icon = <i style={active ? {color:'black', marginLeft: '5px'} : {marginLeft: '5px'}}>{active ? '▼' : '▲'}</i>;
+      return <TableHeaderColumn onTouchTap={this.sortBy.bind(this, header.k)} key={i}>{header.v}{icon}</TableHeaderColumn>;
+    });
   }
 
   isSelected(course) {
@@ -123,7 +140,7 @@ export class KnapsackCourses extends Component {
   }
 
   renderRows() {
-    const { courses } = this.props;
+    const { courses } = this.state;
     return courses.map((course, i) =>
       <TableRow selected={this.isSelected(course)} key={i}>
         <TableRowColumn>{course.name}</TableRowColumn>
@@ -157,7 +174,7 @@ export class KnapsackCourses extends Component {
             multiSelectable={true}>
             <TableHeader>
               <TableRow>
-                {this.renderHeaderColumns(["Course", "Credits", "Hours", "Mandatory"])}
+                {this.renderHeaderColumns([{k: 'name', v: 'Course'}, {k: 'credits', v: 'Credits'}, {k: 'hours', v: 'Hours'}, {k: 'mandatory', v: 'Mandatory'}])}
               </TableRow>
             </TableHeader>
             <TableBody
