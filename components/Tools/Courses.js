@@ -150,7 +150,7 @@ export class KnapsackCourses extends Component {
         <CardText expandable={true}>
           Select the pool of courses for our algorithm.
           <Table
-            allRowsSelected={courses.length > selectedCourses.length}
+            allRowsSelected={courses.length === selectedCourses.length}
             onRowSelection={this.handleRowSelection.bind(this)}
             multiSelectable={true}>
             <TableHeader>
