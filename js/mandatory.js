@@ -34,9 +34,23 @@ function manda(data, capacity) {
       } else break;
     }
     for (let i = 0; i < freebies.length; i++) {
-      if (freebies[i].hours <= capacity) {
-        returnData.set.push(freebies[i]);
-        capacity = capacity - freebies[i].hours;
+      let pos = []; // Short for possible
+      for (let j = i; j < freebies.length; j++) {
+        if (capacity > freebies[j].hours && returnData.set.indexOf(freebies[j]) < 0) pos.push(freebies[j]);
+      }
+      if (pos.length > 0) {
+        let mostValuable = pos[0];
+        let k = 0;
+        while (k < pos.length - 1) { // atleast one item more.
+          if ((mostValuable.credits / mostValuable.hours) < (pos[k+1].credits / pos[k+1].hours)) {
+            mostValuable = pos[i+1];
+          }
+          k++;
+        }
+        if (mostValuable.hours <= capacity) {
+          returnData.set.push(mostValuable);
+          capacity = capacity - mostValuable.hours;
+        } else break;
       } else break;
     }
     break; // Can not fit anymore so quit.

@@ -62,7 +62,7 @@ export class KnapsackAddCourse extends Component {
 		return (
       <Card>
         <CardHeader
-          title="New Course"
+          title="Create a new Course"
           actAsExpander={true}
           showExpandableButton={true}
         />
