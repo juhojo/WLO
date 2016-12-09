@@ -4,6 +4,7 @@ import courses from '../../js/courses';
 var jsnx = require('jsnetworkx');
 
 import Banner from '../Banner.js';
+import Footer from '../Footer.js';
 import Knapsack from '../Knapsack.js';
 
 export class WorkLoadOptimator extends Component {
@@ -60,6 +61,7 @@ export class WorkLoadOptimator extends Component {
         <div id="canvas"></div>
         <button onClick={this.drawGraph.bind(this)}>Click to draw</button>
         <button onClick={this.findCliques.bind(this)}>Click me</button>
+        <Footer />
 			</div>
 		);
 	}

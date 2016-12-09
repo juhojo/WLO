@@ -100,7 +100,7 @@ label.input-label {
 	margin-top: 20px;
 }
 
-/* Banner */
+/* Banner & Footer */
 
 .banner {
   border-top: 30px solid #455A64;
@@ -118,9 +118,6 @@ label.input-label {
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0 auto;
-}
-
-.banner-content {
   margin-bottom: 10px;
 }
 
@@ -129,6 +126,38 @@ label.input-label {
 	bottom: -28px;
 	right: 10%;
 }
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 20px solid #455A64;
+  border-bottom: 20px solid var(--dark-primary-color);
+  background: #607D8B;
+  background: var(--default-primary-color);
+  height: 200px;
+  color: white;
+	margin-top: 40px;
+}
+
+.footer-content {
+  margin-top: 10px;
+  padding: 10px;
+}
+.footer-content div {
+  display: inline-block;
+  float: left;
+}
+.footer-content div:nth-child(even) {
+  margin-right: 10px;
+}
+.footer-content div:nth-child(odd) {
+  margin-left: 10px;
+}
+@media (max-width: 553px) {
+  .footer-content div { display: none; }
+}
+
 
 /* Content */
 

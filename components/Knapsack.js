@@ -9,7 +9,7 @@ export default class Knapsack extends Component {
     super();
     this.algorithmInfo = [
       { indx: 0, label: 'Most Credits per Hour', info: "Given items of different values and volumes, find the most valuable set of items that fit in a knapsack of fixed volume.", data: knapsack(data, 200) },
-      { indx: 1, label: 'Priorities Mandatory Courses', info: "Priorities mandatory items as most valuable and pick the ones that have the highest value, then fills the knapsack with regular items of best value to weight ratio.", data: manda(data, 200) },
+      { indx: 1, label: 'Priorities Mandatory Courses', info: "Priorities mandatory items as most valuable and pick the ones that have the highest value, then fill the knapsack with regular items of best value to weight ratio.", data: manda(data, 200) },
     ];
     this.state = {
       courses: data, // Holds all courses.
