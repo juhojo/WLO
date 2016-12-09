@@ -138,7 +138,7 @@ function manda(data, capacity) {
  * Populates the array with as many high ratio items as capacity allows.
  *
  * Starts with the item with highest v/w,
- * if item does not fit checks if any remaining items share same ration,
+ * if item does not fit checks if any remaining items share same ratio,
  * stops if there is no items with that ratio, eventhough some other
  * item with lower v/w ratio might still fit into array.
  */
@@ -167,7 +167,7 @@ function valueToWeight(data, capacity) {
           }
         }
       }
-      return true;
+      return true; // Breaks the some loop
     }
   });
   returnData.set.forEach((item) => returnData.maxValue += item.credits);
