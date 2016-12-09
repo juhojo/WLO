@@ -36,7 +36,6 @@ export class KnapsackResultList extends Component {
 
 	render() {
     const { result, courses } = this.props;
-    console.log(this.props);
 		return (
 			<div className="content-child">
 				<h2>Results</h2>

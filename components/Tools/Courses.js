@@ -140,10 +140,12 @@ export class KnapsackCourses extends Component {
 
 	render() {
     const { courses, selectedCourses } = this.props;
+    let totalCredits = 0;
+    courses.forEach((course) => { totalCredits += course.credits });
 		return (
       <Card>
         <CardHeader
-          title="Select Courses"
+          title={`Select Courses (${courses.length}, total credits: ${totalCredits})`}
           actAsExpander={true}
           showExpandableButton={true}
         />

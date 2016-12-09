@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { KnapsackTools } from './Tools/Tools.js';
 import { KnapsackResultList } from './ResultList/ResultList.js';
-import { knapsack, data } from '../js/knapsack.js';
-import manda from '../js/mandatory.js';
+import data from '../js/data.js';
+import { knapsack, manda, valueToWeight } from '../js/algorithms.js';
 
 export default class Knapsack extends Component {
   constructor() {
     super();
     this.algorithmInfo = [
-      { indx: 0, label: 'Most Credits per Hour', info: "Given items of different values and volumes, find the most valuable set of items that fit in a knapsack of fixed volume.", data: knapsack(data, 200) },
+      { indx: 0, label: 'As many Credits as Possible', info: "Given items of different values and volumes, find the most valuable set of items that fit in a knapsack of fixed volume.", data: knapsack(data, 200) },
       { indx: 1, label: 'Priorities Mandatory Courses', info: "Priorities mandatory items as most valuable and pick the ones that have the highest value, then fill the knapsack with regular items of best value to weight ratio.", data: manda(data, 200) },
+      { indx: 2, label: 'Most Credits per Hour', info: "Always pick the item with the highest value to weight ratio, if that item does not fit check for items with same ratio.", data: valueToWeight(data, 200) },
     ];
     this.state = {
       courses: data, // Holds all courses.
@@ -17,6 +18,7 @@ export default class Knapsack extends Component {
       dataSets: [
         knapsack(data, 200), // Holds knapsacked items.
         manda(data, 200), // Mandatory prioritiesed items.
+        valueToWeight(data, 200), // Mandatory prioritiesed items.
       ],
       pickAlgorithm: this.algorithmInfo[0], // Initially use knapsack as default.
       hours: 0.5,
@@ -57,6 +59,7 @@ export default class Knapsack extends Component {
       dataSets: [
         knapsack(selectedCourses, (hours * 400)),
         manda(selectedCourses, (hours * 400)),
+        valueToWeight(selectedCourses, (hours * 400)),
       ],
     });
   }
@@ -68,6 +71,7 @@ export default class Knapsack extends Component {
       dataSets: [
         knapsack(selectedCourses, (value * 400)),
         manda(selectedCourses, (value * 400)),
+        valueToWeight(selectedCourses, (value * 400)),
       ],
     });
   }

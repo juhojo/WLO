@@ -31,6 +31,7 @@ export default class Optimization extends Component {
             onChange={this.handleChange}>
             <MenuItem value={0} primaryText="Knapsack" />
             <MenuItem value={1} primaryText="Mandatory" />
+            <MenuItem value={2} primaryText="V/W Ratio" />
           </SelectField>
         </CardText>
 			</Card>
