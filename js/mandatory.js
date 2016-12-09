@@ -55,6 +55,7 @@ function manda(data, capacity) {
     }
     break; // Can not fit anymore so quit.
   }
+  returnData.set.forEach((item) => returnData.maxValue += item.credits);
   return returnData;
 }
 
