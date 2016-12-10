@@ -65,13 +65,13 @@ export default class GraphTheory extends Component {
       <div className="content">
         <div className="content-child">
           <h2>Setup</h2>
-          <Card id="gt-setup-card">
-            <div style={{ padding: '20px' }}>
+          <Card>
+            <div id="gt-setup-card">
               <div id="gt-setup-tools">
                 <button onClick={this.drawGraph.bind(this)}>Click to draw</button>
                 <button onClick={this.findCliques.bind(this)}>Click me</button>
               </div>
-              <div>
+              <div style={{ flexDirection: 'column', height: '100%' }}>
                 <h3>Available courses</h3>
                 <div className="card-list-container">
                   {this.renderCourses()}

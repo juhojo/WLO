@@ -206,17 +206,20 @@ label.input-label {
 }
 #gt-setup-card {
   height: 550px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-content: flex-start;
   justify-content: flex-start;
   align-items: flex-start;
 }
-#gt-setup-tools {
+#gt-setup-card div {
   width: 100%;
+  display: flex;
 }
-.card-list-container {
-  height: 350px;
+#gt-setup-card > div > .card-list-container {
+  display: block;
+  flex-grow: 1;
   border: 1px solid #e7e7e7;
   overflow-x: hidden;
   overflow-y: scroll;
