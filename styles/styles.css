@@ -187,6 +187,15 @@ label.input-label {
 	width: 600px;
 	margin: 10px;
 }
+.content-child-wide {
+  width: 1220px;
+  margin: 10px;
+}
+@media (max-width: 1239px) {
+  .content-child-wide {
+    width: 600px;
+  }
+}
 
 .input-container {
 	height: 72px;
@@ -202,10 +211,10 @@ label.input-label {
 /* Canvas & Graph Theory */
 
 #canvas {
-  height: 550px;
+  height: 450px;
 }
 #gt-setup-card {
-  height: 550px;
+  height: 450px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -223,4 +232,16 @@ label.input-label {
   border: 1px solid #e7e7e7;
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+/* Navigation & Tabs */
+
+.navigation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.navigation > div {
+  background-color: transparent !important;
 }

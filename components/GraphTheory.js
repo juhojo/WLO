@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import Calendar from './reusable/Calendar.js';
 var jsnx = require('jsnetworkx');
 
 import courses from '../js/courses';
@@ -60,7 +61,6 @@ export default class GraphTheory extends Component {
   }
 
 	render() {
-    console.log(courses);
 		return (
       <div className="content">
         <div className="content-child">
@@ -83,11 +83,22 @@ export default class GraphTheory extends Component {
         <div className="content-child">
           <h2>Results</h2>
           <Card>
-            <div id="canvas"></div>
+            <div onTouchMove={e=>{ e.stopPropagation(); e.preventDefault(); }}id="canvas"></div>
           </Card>
         </div>
-
+        { this.props.visible &&
+          <div className="content-child-wide">
+            <h2>Calendar</h2>
+            <Card style={{padding: '20px'}}>
+              <Calendar />
+            </Card>
+          </div>
+        }
 			</div>
 		);
 	}
+}
+
+GraphTheory.propTypes = {
+  visible: React.PropTypes.bool,
 }
