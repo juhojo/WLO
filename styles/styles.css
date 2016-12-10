@@ -75,7 +75,7 @@ body {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5 {
 	font-family: 'Assistant', sans-serif;
 	font-weight: 200;
 	margin-bottom: .5em;
@@ -153,6 +153,13 @@ label.input-label {
 }
 .footer-content div:nth-child(odd) {
   margin-left: 10px;
+}
+.footer-content div a {
+  color: white;
+  text-decoration: none; /* no underline */
+}
+.footer-content div a:hover {
+  border-bottom: 1px solid #e7e7e7;
 }
 @media (max-width: 553px) {
   .footer-content div { display: none; }

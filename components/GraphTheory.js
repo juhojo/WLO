@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Calendar from './reusable/Calendar.js';
 var jsnx = require('jsnetworkx');
 
@@ -10,13 +11,14 @@ export default class GraphTheory extends Component {
   constructor(props) {
     super(props);
     this.G = new jsnx.Graph();
+    this.palette = getMuiTheme().palette;
   }
 
   componentDidMount() {
-    this.populateGraph();
+    this.populateGraph(this.drawGraph);
   }
 
-  populateGraph() {
+  populateGraph(callback) {
     for (let i = 0; i < courses.length; i++) {
       this.G.addNode(i);
     }
@@ -27,6 +29,7 @@ export default class GraphTheory extends Component {
         this.G.addEdgesFrom([[i, helper[j]], [helper[j], i]]);
       }
     }
+    callback(this);
   }
 
   findCliques() {
@@ -37,19 +40,34 @@ export default class GraphTheory extends Component {
     });
   }
 
-  drawGraph() {
-    jsnx.draw(this.G, {
+  drawGraph(self) {
+    jsnx.draw(self.G, {
       element: '#canvas',
       weighted: true,
+      layoutAttr: {
+         linkDistance: 160
+      },
+      nodeAttr: {
+        r: 20
+      },
+      nodeStyle: {
+          fill: self.palette.primary2Color,
+          stroke: 'none'
+      },
+      withLabels: true,
+      labelStyle: {
+        fill: 'white'
+      },
+      edge_attr: {
+      },
       edgeStyle: {
-        'stroke-width': 5
+        'stroke-width': 2
       }
     });
   }
 
   renderCourses() {
     return courses.map((course, i) => {
-      console.log(course);
       return (
         <Card key={i}>
           <CardText expandable={false}>
@@ -68,7 +86,6 @@ export default class GraphTheory extends Component {
           <Card>
             <div id="gt-setup-card">
               <div id="gt-setup-tools">
-                <button onClick={this.drawGraph.bind(this)}>Click to draw</button>
                 <button onClick={this.findCliques.bind(this)}>Click me</button>
               </div>
               <div style={{ flexDirection: 'column', height: '100%' }}>
