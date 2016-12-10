@@ -198,3 +198,26 @@ label.input-label {
 	top: 50%;
 	transform: translateY(-50%);
 }
+
+/* Canvas & Graph Theory */
+
+#canvas {
+  height: 550px;
+}
+#gt-setup-card {
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+#gt-setup-tools {
+  width: 100%;
+}
+.card-list-container {
+  height: 350px;
+  border: 1px solid #e7e7e7;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}

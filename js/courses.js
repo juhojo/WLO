@@ -10,7 +10,7 @@ function generateCourses(){
 
   /* This part will generate some dummy-courses... */
   let id=0;
-  for(let i=0; i<3; i++){
+  for(let i=0; i<10; i++){
     const newCourse = {
       id:id++,
       name:
