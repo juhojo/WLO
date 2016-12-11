@@ -32,8 +32,12 @@ export default class GraphTheory extends Component {
   componentDidUpdate(oldProps, oldState) {
     if (oldState.result !== this.state.result) {
       const calendarCourses = [];
+      const circles = d3.select("#canvas").select(".nodes").selectAll(".node").select("circle");
       courses.forEach((course, i) => {
-        if (this.state.result.indexOf(i) >= 0) calendarCourses.push(course);
+        if (this.state.result.indexOf(i) >= 0) {
+          d3.select(circles[0][i]).style("fill", this.palette.accent1Color);
+          calendarCourses.push(course);
+        }
       });
       this.setState({ calendarCourses: calendarCourses });
     }
@@ -70,7 +74,6 @@ export default class GraphTheory extends Component {
   drawGraph(self) {
     jsnx.draw(self.G, {
       element: '#canvas',
-      weighted: true,
       layoutAttr: {
          linkDistance: 160
       },
@@ -102,7 +105,7 @@ export default class GraphTheory extends Component {
       return (
         <Card key={i}>
           <CardText expandable={false}>
-            {course.name}{icon}
+            {i}. {course.name}{icon}
           </CardText>
         </Card>
       );
