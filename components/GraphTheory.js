@@ -102,10 +102,22 @@ export default class GraphTheory extends Component {
       let icon = <i><ThumbDown color={this.palette.primary1Color}/></i>;
       if (result.length === 0) icon = <i><ThumbsUpDown color={this.palette.primary2Color} /></i>;
       else if (result.indexOf(i) >= 0) icon = <i><ThumbUp color={this.palette.accent1Color}/></i>;
+      const title = `${i}. ${course.name}`;
+      console.log(course);
       return (
         <Card key={i}>
-          <CardText expandable={false}>
-            {i}. {course.name}{icon}
+          <CardHeader
+            title={title}
+            avatar={icon}
+            actAsExpander={true}
+            showExpandableButton={true}
+          />
+          <CardText expandable={true}>
+            Course code: {course.id}
+            <br/>
+            Period: {course.period}
+            <br/>
+            Credits: {course.credits}
           </CardText>
         </Card>
       );
