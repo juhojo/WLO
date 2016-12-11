@@ -229,7 +229,7 @@ label.input-label {
   justify-content: flex-start;
   align-items: flex-start;
 }
-#gt-setup-card div {
+#gt-setup-card > div {
   width: 100%;
   display: flex;
 }
@@ -239,6 +239,10 @@ label.input-label {
   border: 1px solid #e7e7e7;
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+.card-list-container i {
+  float: right;
 }
 
 /* Navigation & Tabs */

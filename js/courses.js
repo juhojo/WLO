@@ -10,7 +10,7 @@ function generateCourses(){
 
   /* This part will generate some dummy-courses... */
   let id=0;
-  for(let i=0; i<10; i++){
+  for(let i=0; i<20; i++){
     const newCourse = {
       id:id++,
       name:
@@ -47,7 +47,7 @@ function findEdges(courses){
   for(let i=0; i<courses.length; i++){
     courses[i].edges.insert(i);
     for(let j=i; j<courses.length; j++){
-      checkEdge(i,j); //Löytyy riviltä 85
+      checkEdge(i,j);
     }
   }
 

@@ -7,6 +7,26 @@ export default class Calendar extends Component {
   render() {
     return <div ref="calendar"></div>;
   }
+  componentWillReceiveProps(newProps) {
+    const { courses } = this.props;
+    if (newProps.courses !== courses && newProps.courses.length > 0) {
+      newProps.courses.forEach((course, i) => {
+        course.lessons.forEach((lesson, j) => {
+          // console.log(lesson);
+          const startTime = moment().startOf('isoweek');
+          console.log(startTime);
+          $(this.refs.calendar).fullCalendar('renderEvent',
+            {
+              id: course.id,
+              title: course.name,
+              start: startTime.get('date'), // lesson.startTime
+              // end: lesson.endTime,
+            },
+          );
+        });
+      });
+    }
+  }
   componentDidMount() {
     $(this.refs.calendar).fullCalendar({
 			editable: true,
@@ -24,6 +44,10 @@ export default class Calendar extends Component {
 					$(this).remove();
 				}
 			}
-    })
+    });
   }
+}
+
+Calendar.propTypes = {
+  courses: React.PropTypes.array,
 }
