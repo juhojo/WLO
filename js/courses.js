@@ -138,7 +138,11 @@ function coursesOverlap(c1, c2){
 //returns true if there is overlapping, otherwise false
 function lessonsOverlap(l1, l2){
   if(l1.day !== l2.day) return false;
-  const t = [l1,l2].sort((a, b) => a.startTime-b.startTime);
+  const t = [l1,l2].sort((a, b) =>{
+    if(a.startTime>b.startTime) return 1;
+    if(a.startTime<b.startTime) return -1;
+    return 0;
+  });
   if(t[1].startTime >= t[0].endTime) return false;
   return true;
 }
