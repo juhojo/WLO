@@ -99,9 +99,9 @@ export default class GraphTheory extends Component {
   renderCourses() {
     const { result } = this.state;
     return courses.map((course, i) => {
-      let icon = <i><ThumbDown color={this.palette.primary1Color}/></i>;
-      if (result.length === 0) icon = <i><ThumbsUpDown color={this.palette.primary2Color} /></i>;
-      else if (result.indexOf(i) >= 0) icon = <i><ThumbUp color={this.palette.accent1Color}/></i>;
+      let icon = <i><ThumbDown color={this.palette.accent1Color}/></i>;
+      if (result.length === 0) icon = <i><ThumbsUpDown color={this.palette.primary2Color}/></i>;
+      else if (result.indexOf(i) >= 0) icon = <i><ThumbUp color={this.palette.primary1Color}/></i>;
       const title = `${i}. ${course.name}`;
       console.log(course);
       return (
@@ -134,7 +134,7 @@ export default class GraphTheory extends Component {
               The algorithm will choose the largest combination of courses that is possible.
               The graph contains all the courses listed below and the calendar will be generated
               with the most desirable combination of courses.
-              <div style={{ margin: '10px 0' }}>
+              <div style={{ margin: '10px 0 20px 0' }}>
                 <RaisedButton
                   label="Solve"
                   primary={true}
