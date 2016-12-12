@@ -35,8 +35,10 @@ export default class GraphTheory extends Component {
       const circles = d3.select("#canvas").select(".nodes").selectAll(".node").select("circle");
       courses.forEach((course, i) => {
         if (this.state.result.indexOf(i) >= 0) {
-          d3.select(circles[0][i]).style("fill", this.palette.accent1Color);
+          d3.select(circles[0][i]).style("fill", this.palette.primary1Color);
           calendarCourses.push(course);
+        } else {
+          d3.select(circles[0][i]).style("fill", this.palette.accent1Color);
         }
       });
       this.setState({ calendarCourses: calendarCourses });
