@@ -37,13 +37,17 @@ export default class Calendar extends Component {
     this.setState({ period: i });
   }
   renderButtons() {
-    return Array(4).fill(0).map((v, i) =>
-      <RaisedButton key={i}
-        style={{margin: '5px'}}
-        label={i+1}
-        primary={true}
-        onTouchTap={this.changePeriod.bind(this, i+1)}/>
-    );
+    const { period } = this.state;
+    return Array(4).fill(0).map((v, i) => {
+      return (
+        <RaisedButton key={i}
+          style={{margin: '0px 5px'}}
+          label={i+1}
+          primary={period !== i+1}
+          secondary={period === i+1}
+          onTouchTap={this.changePeriod.bind(this, i+1)}/>
+      );
+    });
   }
   updateView(courses) {
     $(this.refs.calendar).fullCalendar('removeEvents');
@@ -69,8 +73,9 @@ export default class Calendar extends Component {
   }
   render() {
     return <div>
+      <h3>Periods</h3>
       {this.renderButtons()}
-      <div ref="calendar"></div>
+      <div style={{marginTop: '10px'}} ref="calendar"></div>
     </div>;
   }
 }
