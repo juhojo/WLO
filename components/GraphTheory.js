@@ -11,7 +11,6 @@ import Calendar from './reusable/Calendar.js';
 var jsnx = require('jsnetworkx');
 
 import courses from '../js/courses';
-import { maximumClique } from '../js/algorithms';
 
 export default class GraphTheory extends Component {
   constructor(props) {
@@ -22,6 +21,7 @@ export default class GraphTheory extends Component {
       result: [],
       calendarCourses: [],
     };
+    this.cliqueWorker = new Worker("../js/cliqueWorker.js");
   }
 
   componentDidMount() {
@@ -69,8 +69,10 @@ export default class GraphTheory extends Component {
         else graph[i][j] = 0;
       }
     }
-    _.defer(() => self.setState({ result: maximumClique(graph) }));
-    // this.setState({ result: maximumClique(graph) });
+    this.cliqueWorker.postMessage([graph]);
+    this.cliqueWorker.onmessage=e=>{
+      this.setState({ result: e.data });
+    }
   }
 
   drawGraph(self) {
