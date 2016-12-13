@@ -65,8 +65,7 @@ export default class GraphTheory extends Component {
     for (let i = 0; i<courses.length; i++) {
       graph[i] = [];
       for (let j = 0; j<courses.length; j++) {
-        if (~courses[i].edges.indexOf(j) && i !== j) graph[i][j] = 1;
-        else graph[i][j] = 0;
+        graph[i][j] = ~courses[i].edges.indexOf(j) ? 1 : 0;
       }
     }
     this.cliqueWorker.postMessage([graph]);

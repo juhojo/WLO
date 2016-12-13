@@ -31,10 +31,9 @@ function generateCourses(){
         const lesson = new Lesson(lessonLengths[k]);
         if (newOption.lessons.length > 0) {
           for (let l=0; l<newOption.lessons.length; l++) {
-            if (lesson.getLesson().day === newOption.lessons[l].day && l !== k) {
-              if (lessonsOverlap(lesson.getLesson(), newOption.lessons[l])) {
-                lesson.setSafeStartTime(newOption.lessons);
-              }
+            if (lesson.getLesson().day === newOption.lessons[l].day && l !== k &&
+              lessonsOverlap(lesson.getLesson(), newOption.lessons[l])) {
+              lesson.setSafeStartTime(newOption.lessons);
             }
           }
         }
@@ -79,12 +78,11 @@ function findEdges(courses){
   // If not, the index of each object in the courses array is stored in the other course's edges property, to indicate that they don't conflict with eachother.
   function checkEdge(a,b){
     //if "b" is not already in the edges of "a" and if courses a and b don't overlap:
-    if( // NOTE: Tää vaikuttaa nyt siltä, että ei toimi vaikka pitäis. Tarviskohan jotain lisävalidaatiota vielä?
+    if( // NOTE: Tää saattais tarvita vielä jotain lisävalidaatiota
       !~courses[a].edges.indexOf(b) && //skip if edge already found
       !coursesOverlap(courses[a],courses[b]) //skip if conflict
     ){
-      if (coursesOverlap(courses[a], courses[b])) console.log("checkEdge if statement does not work", courses[a], courses[b]);
-      if (courses[a].edges.indexOf(b) >= 0) console.log("checkEdge if statement does not work", courses[a], courses[b]);
+      console.log(courses[a], courses[b]);
       courses[a].edges.insert(b);
       courses[b].edges.insert(a);
     }
@@ -101,29 +99,30 @@ function coursesOverlap(c1, c2){
   for(let i in c1.lessons){
     for(let j in c2.lessons){
       if(lessonsOverlap(c1.lessons[i], c2.lessons[j])){
-        console.log(`"Courses overlap:"`, c1, c2);
+        console.log(`"Courses overlap:"`, c1, c2); // NOTE: Ilpo, tää on hyvä logi!
         return true;
       }
     }
   }
-  return false;
+  return false; // No overlapping.
 }
 
 //compares two lessons to see if their schedules overlap
 //returns true if there is overlapping, otherwise false
-function lessonsOverlap(l1, l2){ // NOTE: Välillä sekoilee
+function lessonsOverlap(l1, l2){ // NOTE: Välillä sekoilee??
   if(l1.day !== l2.day) return false;
   const t = [l1,l2].sort((a, b) => {
     if(a.startTime>b.startTime) return 1;
     if(a.startTime<b.startTime) return -1;
     return 0;
   });
-  if(t[1].startTime !== t[0].startTime &&
+  if(t[1].startTime != t[0].startTime &&
      t[1].startTime >= t[0].endTime) return false;
-  console.log(`"Lessons overlap"`,l1, l2);
+  // console.log(`"Lessons overlap"`,l1, l2);
   return true;
 }
 
+// TODO: All this functionality needs to be implemented later
 function pickMoreValuable(c1,c2){
   return c1.worth>c2.worth?c1:c2;
 }
