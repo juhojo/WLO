@@ -10,7 +10,7 @@ function generateCourses(){
 
   /* This part will generate some dummy-courses... */
   let id=0;
-  for(let i=0; i<20; i++){
+  for(let i=0; i<30; i++){
     const newCourse = {
       id:id++,
       name:
@@ -19,10 +19,11 @@ function generateCourses(){
       credits: rand(5),
       edges: [],
     };
-    const numberOfLessons = rand(3);
-    const lessonLengths=Array(numberOfLessons).fill(0).map(v=>1.25*rand(3));
+    // const numberOfLessons = rand(3);
+    const numberOfLessons = rand(2);
+    const lessonLengths=Array(numberOfLessons).fill(0).map(v=>1.25*1);
     newCourse.worth=lessonLengths.reduce(add, 0)/newCourse.credits; // time/credits
-    for(let j=0; j<rand(4); j++){
+    for(let j=0; j<rand(3); j++){
       const newOption = Object.assign({}, newCourse);
       newOption.period = rand(4);
       newOption.lessons = [];
@@ -42,10 +43,9 @@ function generateCourses(){
 }
 
 function findEdges(courses){
-  courses=clone(courses);
+  courses=courses.slice(0);
   //Let's compare each course with one-other:
   for(let i=0; i<courses.length; i++){
-    courses[i].edges.insert(i);
     for(let j=i; j<courses.length; j++){
       checkEdge(i,j);
     }
@@ -56,77 +56,28 @@ function findEdges(courses){
   function checkEdge(a,b){
     //if "b" is not already in the edges of "a" and if courses a and b don't overlap:
     if(
-      !~courses[a].edges.indexOf(b) &&
-      !coursesOverlap(courses[a],courses[b])
+      !~courses[a].edges.indexOf(b) && //skip if edge already found
+      !coursesOverlap(courses[a],courses[b]) //skip if conflict
     ){
       courses[a].edges.insert(b);
       courses[b].edges.insert(a);
     }
   }
+
   return courses;
 }
-
-// function findCliques(courses){
-//   console.log("finding cliques");
-//   courses = clone(courses);
-//   const cliques=[];
-//
-//   for (var i = 0; i < courses.length; i++) {
-//     const edges=courses[i].edges;
-//     const vertices={};
-//     let currentClique=[];
-//
-//     for (var j = 0; j < edges.length; j++) {
-//       let filtered = _.intersection(edges, courses[edges[j]].edges);
-//
-//       currentClique=[j].concat(currentClique);
-//       vertices[edges[j]]=filtered;
-//
-//       for (var k = 0; k < filtered.length; k++) {
-//         // filtered = _.intersection(filtered, courses[filtered[j]].edges);
-//         // if (vertexInClique(k, currentClique, courses)){
-//         //   currentClique=[k].concat(currentClique);
-//         //   filtered[k];
-//         // }
-//       }
-//     }
-//   }
-// }
-
-function vertexInClique(v, a, courses){
-  console.log("V:", v, "A:", a, "Courses:", courses);
-  for (var i = 0; i < a.length; i++) {
-    if(!~courses[a[i]].edges.indexOf(v));
-  }
-}
-
-// const startTime=Date.now();
-let courses = generateCourses();
-
-// console.log(courses.length);
-courses = findEdges(courses);
-// console.log(courses);
-
-// console.log(Date.now()-startTime); //this just calculates how long the generating took
-
-// const graph = [];
-// for (let i = 0; i<courses.length; i++) {
-//   graph[i] = courses[i].edges;
-// }
-// console.log(graph);
-
-// findCliques(courses);
 
 //This compares each of the lessons associated with a course with the lessons of the other course to see if there is any overlapping in the schedule:
 //returns true if there is overlapping, otherwise false
 function coursesOverlap(c1, c2){
-  if(c1.id == c2.id) return true;
-  if(c1.period != c2.period) return false;
+  // console.log('hai',c1, c2, c1.name == c2.name);
+  if(c1.name == c2.name) return true;
+  else if(c1.period != c2.period) return false;
   let overlaps=false;
   loop1: for(let i in c1.lessons) {
-    for(let j in c2.lessons){
+    for(let j in c2.lessons){ // miksei joo
       if(lessonsOverlap(c1.lessons[i], c2.lessons[j])){
-        overlaps=true;
+        overlaps=true; //jos yks tunti overlappaa nii koko kurssiki
         break loop1;
       }
     }
@@ -141,14 +92,18 @@ function lessonsOverlap(l1, l2){
   const t = [l1,l2].sort((a, b) =>{
     if(a.startTime>b.startTime) return 1;
     if(a.startTime<b.startTime) return -1;
-    return 0;
+    return 0; //että saadaan ne alkamisjärjestyksee
   });
-  if(t[1].startTime >= t[0].endTime) return false;
+  if(t[1].startTime !== t[0].startTime && //TODO: tämä on vituiks
+     t[1].startTime >= t[0].endTime) return false;
+  // console.log(`"overlap"`,l1, l2); //tää on se mitä me äskön katottii
   return true;
 }
 
 function pickMoreValuable(c1,c2){
   return c1.worth>c2.worth?c1:c2;
 }
+
+const courses = findEdges(generateCourses());
 
 export default courses;

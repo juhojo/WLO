@@ -28,10 +28,9 @@ function bronk(r,p,x){
   for (let vertex in p.slice(0)){
     const r_new = r.slice(0);
     r_new.push(vertex);
-    const p_new=p.filter(val=>~~N(vertex).indexOf(val)); //wtf
-    const x_new=x.filter(val=>~~N(vertex).indexOf(val)); //wtf
-    console.log(r_new,p_new,x_new);
-    bronk(r_new,p_new,x_new);
+    const p_new = p.filter(val => graph[vertex][val]);
+    const x_new = x.filter(val => graph[vertex][val]);
+    bronk(r_new, p_new, x_new);
     p=p.splice(vertex,1);
     x.push(vertex);
   }
@@ -39,7 +38,8 @@ function bronk(r,p,x){
 
 bronk([], [0,1,2,3,4,5], []);
 
-
+// Ku siis en tiiä ku 
+// //nii?
 
 
 

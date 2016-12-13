@@ -5,25 +5,32 @@ import moment from 'moment';
 
 export default class Calendar extends Component {
   render() {
-    return <div ref="calendar"></div>;
+    return <div>
+      <button onClick="">1</button>
+      <div ref="calendar"></div>
+    </div>;
   }
   componentWillReceiveProps(newProps) {
     const { courses } = this.props;
     if (newProps.courses !== courses && newProps.courses.length > 0) {
       newProps.courses.forEach((course, i) => {
-        course.lessons.forEach((lesson, j) => {
-          // console.log(lesson);
-          const startTime = moment().startOf('isoweek');
-          console.log(startTime);
-          $(this.refs.calendar).fullCalendar('renderEvent',
-            {
-              id: course.id,
-              title: course.name,
-              start: startTime.get('date'), // lesson.startTime
-              // end: lesson.endTime,
-            },
-          );
-        });
+        if(course.period==2){
+          course.lessons.forEach((lesson, j) => {
+            // console.log(lesson);
+            console.log(lesson);
+            const startTime = moment().startOf('isoweek').add(lesson.day-1, 'days').add(lesson.startTime, 'hours').toDate();
+            const endTime = moment().startOf('isoweek').add(lesson.day-1, 'days').add(lesson.endTime, 'hours').toDate();
+            console.log(startTime); 
+            $(this.refs.calendar).fullCalendar('renderEvent',
+              {
+                id: course.id,
+                title: course.name,
+                start: startTime, // lesson.startTime
+                end: endTime,
+              },
+            );
+          });
+        }
       });
     }
   }

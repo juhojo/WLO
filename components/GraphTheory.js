@@ -63,7 +63,7 @@ export default class GraphTheory extends Component {
     for (let i = 0; i<courses.length; i++) {
       graph[i] = [];
       for (let j = 0; j<courses.length; j++) {
-        if (courses[i].edges.indexOf(j) >= 0 && i !== j) graph[i][j] = 1;
+        if (~courses[i].edges.indexOf(j) && i !== j) graph[i][j] = 1;
         else graph[i][j] = 0;
       }
     }
@@ -103,7 +103,7 @@ export default class GraphTheory extends Component {
       if (result.length === 0) icon = <i><ThumbsUpDown color={this.palette.primary2Color} /></i>;
       else if (result.indexOf(i) >= 0) icon = <i><ThumbUp color={this.palette.accent1Color}/></i>;
       const title = `${i}. ${course.name}`;
-      console.log(course);
+      // console.log(course);
       return (
         <Card key={i}>
           <CardHeader

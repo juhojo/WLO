@@ -1,13 +1,13 @@
-(()=>{
+// (()=>{
   Array.prototype.spliced = function(){
     Array.prototype.splice.apply(this, arguments);
     return(this);
   }
 
-  Array.prototype.spliced = function(){
-    Array.prototype.splice.apply(this, arguments);
-    return(this);
-  }
+  // Array.prototype.spliced = function(){
+  //   Array.prototype.splice.apply(this, arguments);
+  //   return(this);
+  // }
 
   Array.prototype.insert=(position=>{
     return function(e){
@@ -27,7 +27,7 @@
   // Object.prototype.cloned = function(){
   //   return JSON.parse(JSON.stringify(this));
   // }
-})();
+// })(); mut saitä ei tarvii, olin vaa retu
 
 function clone(obj){
   return JSON.parse(JSON.stringify(obj));
