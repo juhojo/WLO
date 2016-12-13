@@ -20,6 +20,7 @@ export default class Calendar extends Component {
       header: false,
       columnFormat: 'ddd',
 			editable: true,
+      eventDurationEditable: false,
       defaultView: 'agendaWeek',
       hiddenDays: [ 0, 6 ], // hide Sundays and Saturdays
       contentHeight: 519,
@@ -54,17 +55,16 @@ export default class Calendar extends Component {
     courses.forEach((course, i) => {
       if(course.period==this.state.period){
         course.lessons.forEach((lesson, j) => {
-          // console.log(lesson);
-          console.log(lesson);
           const startTime = moment().startOf('isoweek').add(lesson.day-1, 'days').add(lesson.startTime, 'hours').toDate();
           const endTime = moment().startOf('isoweek').add(lesson.day-1, 'days').add(lesson.endTime, 'hours').toDate();
-          console.log(startTime);
           $(this.refs.calendar).fullCalendar('renderEvent',
             {
               id: course.id,
               title: course.name,
-              start: startTime, // lesson.startTime
+              start: startTime,
               end: endTime,
+              eventStartEditable: false,
+              durationEditable: false,
             },
           );
         });
