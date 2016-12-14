@@ -26,26 +26,35 @@ export default class GraphTheory extends Component {
   }
 
   componentDidMount() {
-    this.populateGraph(this.drawGraph);
-    // const graph = [[0,1,0,0,1,0],[1,0,1,0,1,0],[0,1,0,1,0,0],[0,0,1,0,1,1],[1,1,0,1,0,0],[0,0,0,1,0,0]];
+    if (this.isChrome) this.populateGraph(this.drawGraph);
   }
 
   componentDidUpdate(oldProps, oldState) {
     if (oldState.result !== this.state.result) {
-      const calendarCourses = [];
-      const circles = d3.select("#canvas").select(".nodes").selectAll(".node").select("circle");
-      courses.forEach((course, i) => {
-        if (this.state.result.indexOf(i) >= 0) {
-          d3.select(circles[0][i]).style("fill", this.palette.primary1Color);
-          calendarCourses.push(course);
-        } else {
-          d3.select(circles[0][i]).style("fill", this.palette.accent1Color);
-        }
-      });
-      this.setState({ calendarCourses: calendarCourses });
+      this.updateCalendar();
+      if (this.isChrome) this.updateCircles();
     }
   }
 
+  updateCalendar() {
+    const calendarCourses = [];
+    courses.forEach((course, i) => {
+      if (this.state.result.indexOf(i) >= 0) {
+        calendarCourses.push(course);
+      }
+    });
+    this.setState({ calendarCourses: calendarCourses });
+  }
+  updateCircles() {
+    const circles = d3.select("#canvas").select(".nodes").selectAll(".node").select("circle");
+    courses.forEach((course, i) => {
+      if (this.state.result.indexOf(i) >= 0) {
+        d3.select(circles[0][i]).style("fill", this.palette.primary1Color);
+      } else {
+        d3.select(circles[0][i]).style("fill", this.palette.accent1Color);
+      }
+    });
+  }
   populateGraph(callback) {
     for (let i = 0; i < courses.length; i++) {
       this.G.addNode(i);
