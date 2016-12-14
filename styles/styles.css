@@ -221,13 +221,7 @@ label.input-label {
   height: 450px;
 }
 #gt-setup-card {
-  height: 450px;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  justify-content: flex-start;
-  align-items: flex-start;
 }
 #gt-setup-card > div {
   width: 100%;
@@ -237,13 +231,7 @@ label.input-label {
   display: block;
   flex-grow: 1;
   border: 1px solid #e7e7e7;
-  /*overflow-x: hidden;*/
-  /*overflow-y: scroll;*/
 }
-
-/*.card-list-container i {
-  float: right;
-}*/
 
 /* Navigation & Tabs */
 

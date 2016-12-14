@@ -22,6 +22,7 @@ export default class GraphTheory extends Component {
       calendarCourses: [],
     };
     this.cliqueWorker = new Worker("../js/cliqueWorker.js");
+    this.isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
   }
 
   componentDidMount() {
@@ -132,7 +133,7 @@ export default class GraphTheory extends Component {
       <div className="content">
         <div className="content-child" id="setupCardParent">
           <h2>Setup</h2>
-          <Card>
+          <Card style={{height: '450px'}}>
             <div id="gt-setup-card">
               The algorithm will choose the largest combination of courses that is possible.
               The graph contains all the courses listed below and the calendar will be generated
@@ -152,12 +153,14 @@ export default class GraphTheory extends Component {
             </div>
           </Card>
         </div>
-        <div className="content-child">
-          <h2>Graph</h2>
-          <Card>
-            <div onTouchMove={e=>{ e.stopPropagation(); e.preventDefault(); }}id="canvas"></div>
-          </Card>
-        </div>
+        { this.isChrome &&
+          <div className="content-child">
+            <h2>Graph</h2>
+            <Card>
+              <div onTouchMove={e=>{ e.stopPropagation(); e.preventDefault(); }}id="canvas"></div>
+            </Card>
+          </div>
+        }
         { this.props.visible &&
           <div className="content-child-wide">
             <h2>Calendar</h2>
