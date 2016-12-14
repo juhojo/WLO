@@ -82,7 +82,7 @@ function findEdges(courses){
       !~courses[a].edges.indexOf(b) && //skip if edge already found
       !coursesOverlap(courses[a],courses[b]) //skip if conflict
     ){
-      console.log(courses[a], courses[b]);
+      // console.log(courses[a], courses[b]);
       courses[a].edges.insert(b);
       courses[b].edges.insert(a);
     }
@@ -96,14 +96,15 @@ function findEdges(courses){
 function coursesOverlap(c1, c2){
   if(c1.name == c2.name) return true;
   if(c1.period != c2.period) return false;
-  for(let i in c1.lessons){
-    for(let j in c2.lessons){
+  for(let i=0; i<c1.lessons.length; i++){
+    for(let j=0; j<c2.lessons.length; j++){
       if(lessonsOverlap(c1.lessons[i], c2.lessons[j])){
-        console.log(`"Courses overlap:"`, c1, c2); // NOTE: Ilpo, tää on hyvä logi!
+        console.log(`Courses overlap:`, c1, c2, i, j); // NOTE: Ilpo, tää on hyvä logi!
         return true;
       }
     }
   }
+  console.log("No overlapping", c1, c2);
   return false; // No overlapping.
 }
 
@@ -116,6 +117,12 @@ function lessonsOverlap(l1, l2){ // NOTE: Välillä sekoilee??
     if(a.startTime<b.startTime) return -1;
     return 0;
   });
+  console.log(
+    `Comparing:  
+    t0: ${t[0].startTime}, ${t[0].endTime},
+    t1: ${t[1].startTime}, ${t[1].endTime}`,
+    !(t[1].startTime != t[0].startTime && t[1].startTime >= t[0].endTime)
+  );
   if(t[1].startTime != t[0].startTime &&
      t[1].startTime >= t[0].endTime) return false;
   // console.log(`"Lessons overlap"`,l1, l2);
@@ -123,10 +130,10 @@ function lessonsOverlap(l1, l2){ // NOTE: Välillä sekoilee??
 }
 
 // TODO: All this functionality needs to be implemented later
-function pickMoreValuable(c1,c2){
-  return c1.worth>c2.worth?c1:c2;
-}
+// function pickMoreValuable(c1,c2){
+//   return c1.worth>c2.worth?c1:c2;
+// }
 
 const courses = findEdges(generateCourses());
-
+console.log(courses);
 export default courses;

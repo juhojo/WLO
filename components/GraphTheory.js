@@ -26,7 +26,7 @@ export default class GraphTheory extends Component {
 
   componentDidMount() {
     this.populateGraph(this.drawGraph);
-    const graph = [[0,1,0,0,1,0],[1,0,1,0,1,0],[0,1,0,1,0,0],[0,0,1,0,1,1],[1,1,0,1,0,0],[0,0,0,1,0,0]];
+    // const graph = [[0,1,0,0,1,0],[1,0,1,0,1,0],[0,1,0,1,0,0],[0,0,1,0,1,1],[1,1,0,1,0,0],[0,0,0,1,0,0]];
   }
 
   componentDidUpdate(oldProps, oldState) {
@@ -130,7 +130,7 @@ export default class GraphTheory extends Component {
 	render() {
 		return (
       <div className="content">
-        <div className="content-child">
+        <div className="content-child" id="setupCardParent">
           <h2>Setup</h2>
           <Card>
             <div id="gt-setup-card">
