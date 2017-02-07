@@ -1,6 +1,7 @@
 # WLO
 ## WorkLoadOptimator with ReactJS.
-*Uses Knapsack 1/0 algorithms to solve most efficient way of choosing your courses.*
+*Uses Knapsack 1/0 algorithm and graph theory to solve the most efficient way of choosing your courses.*
+See live demo at: http://wlo.oksanen.co/
 
 ### Tech
 + NodeJS
